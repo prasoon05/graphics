@@ -1,0 +1,16 @@
+setwd("D:\\data science\\R\\Rwork_coursera\\practice data\\exdata%2Fdata%2Fhousehold_power_consumption")
+housing_cons<-read.delim(file='./household_power_consumption.txt',header=T, sep=';', na.strings="?", 
+                         nrows=2075259, check.names=F, stringsAsFactors=F, comment.char="", quote='\"')
+library(dplyr)
+housing<-housing_cons%>%filter(Date %in% c('1/2/2007','2/2/2007'))
+head(housing)
+datetime<-paste(dmy(housing$Date),housing$Time)
+housing$Datetime<-as.POSIXct(datetime)
+png('plot3.png',width = 480,height = 480)
+with(housing,{
+     plot(Sub_metering_1~Datetime,type="l",ylab="Energy sub metering",xlab="")
+     lines(Sub_metering_2~Datetime,col='red')
+     lines(Sub_metering_3~Datetime,col='blue')
+  })
+legend('topright',col = c('black','red','blue'),lty=1,lwd=2,legend = c('Sub_metering_1','Sub_metering_2','Sub_metering_3'))
+dev.off()

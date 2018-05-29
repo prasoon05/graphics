@@ -1,0 +1,8 @@
+setwd("D:\\data science\\R\\Rwork_coursera\\practice data\\exdata%2Fdata%2Fhousehold_power_consumption")
+housing_cons<-read.delim(file='./household_power_consumption.txt',header = TRUE,sep = ';',stringsAsFactors = FALSE)
+library(dplyr)
+housing<-housing_cons%>%filter(Date %in% c('1/2/2007','2/2/2007'))
+head(housing)
+png("plot1.png",width = 480 , height = 480)
+hist(as.numeric(housing$Global_active_power),xlab = "Global Active Power (kilowatts)",ylab = "Frequency",main="Global Active Power",col = 'red')
+dev.off()
